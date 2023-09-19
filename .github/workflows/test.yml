@@ -1,0 +1,24 @@
+name: Test
+on:
+  push:
+    branches: [ "master" ]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10.x"
+    - name: Install dependencies
+      run: |
+        python3 -m venv pytest-env
+        source pytest-env/bin/activate
+        pip install pytest
+    - name: Test with pytest
+      run: |
+        source pytest-env/bin/activate
+        pytest
